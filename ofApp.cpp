@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofSetBackgroundColor(0);
-	
+	mesh.setMode(OF_PRIMITIVE_LINE_STRIP);
 }
 
 //--------------------------------------------------------------
@@ -18,32 +18,29 @@ void ofApp::update(){
 	z = z + dz;
 	
 	ofPoint point = ofPoint(x, y, z);
-	this->pointLogs.push_front(point);
+	ofVec3f vertex(x, y, z);
+	ofVec3f offSet(ofNoise(-0.5, 0.5), ofNoise(-0.5, 0.5), ofNoise(-0.5, 0.5));
+	vertex += offSet;
+	c.setHsb(hue, 255, 255);
+	mesh.addVertex(vertex);
+	mesh.addColor(c);
+	hue += 0.1;
+	if (hue > 255)
+		hue = 0;
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
-	
-	
-	ofNoFill();
-	//cout << x << "  " << y << "   " << z << endl;
+	//ofNoFill();
 	cam.begin();
-	ofScale(10);
-	ofBeginShape();
-	ofColor c = ofColor(0);
-	float hue = 0;
-	for (ofPoint&log : this->pointLogs) {
-		//ofDrawCircle(log, 0.2);
-		c.setHsb(hue, 255, 255);
-		ofSetColor(c);
-		ofVertex(log);
-		hue += 0.1;
-		if (hue > 255)
-			hue = 0;
-	}
-	ofEndShape();
+		ofScale(8);
+		ofColor c = ofColor(0);
+	
+		ofBeginShape();
+			mesh.draw();
+		ofEndShape();
 	cam.end();
 }
 

@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "ofMain.h"
+#include "ofMath.h"
 
 class ofApp : public ofBaseApp{
 	private:
@@ -9,10 +10,14 @@ class ofApp : public ofBaseApp{
 		float y = 0;
 		float z = 0;
 
-		float sigma = 10;
-		float rou = 28;
+		float sigma = 10;//10;
+		float rou = 15;// 28;
 		float beta = 8.0/3.0;
 		std::deque<ofPoint> pointLogs;
+		ofMesh mesh; 
+		ofColor c = ofColor(0);
+		float hue = 0;
+
 		ofEasyCam cam;
 
 	public:
