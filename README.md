@@ -1,3 +1,3 @@
 # oF_Lorenz
 
-## Lorenz attractor in openFramworks
+## Lorenz attractor in openFrameworks
